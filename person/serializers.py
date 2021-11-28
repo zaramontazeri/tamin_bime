@@ -5,6 +5,7 @@ from drf_extra_fields.geo_fields import PointField
 class PrsonSerializer(serializers.ModelSerializer):
     address_point = PointField()
     class Meta:
+        
         model = models.Person
         fields = (
             'pk', 
@@ -16,5 +17,16 @@ class PrsonSerializer(serializers.ModelSerializer):
             'gender', 
             'address_point', 
             'address', 
-            'files'
+        )
+
+class File_PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=models.File_Person
+        fields=(
+            'pk',
+            'created', 
+            'last_updated',
+            'type',
+            'files',
+            'person'
         )

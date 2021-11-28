@@ -4,6 +4,7 @@ from . import api
 
 router = routers.DefaultRouter()
 router.register(r'person', api.PersonViewSet)
+router.register(r'file', api.File_PersonViewSet)
 
 
 urlpatterns = (

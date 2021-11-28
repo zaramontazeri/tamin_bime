@@ -2,8 +2,6 @@ from django.contrib.gis.db import models as models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
 
-
-
 class Person (models.Model):
     FEMALE= "female"
     MALE ="male"
@@ -17,7 +15,6 @@ class Person (models.Model):
     gender = models.CharField(max_length=6,choices=GENDER_TYPE)
     address_point = models.PointField()
     address = JSONField(default=dict)
-    files = models.FileField(upload_to="upload/person_files/",null=True,blank=True)
 
     # Relationship Fields
     company=models.ForeignKey(
@@ -30,3 +27,25 @@ class Person (models.Model):
 
     def __str__(self):
         return f'{self.full_name}:{self.national_code}'
+
+class File_Person (models.Model):
+    SHENASNAMEH= "shenasnameh"
+    CARTMELI ="cartmeli"
+    PAYANKHEDMAT_MOAFIAT="payankhedmat_moafiat"
+    IMAGE="image"
+    FILE_TYPE = ((SHENASNAMEH,SHENASNAMEH),(CARTMELI,CARTMELI),(PAYANKHEDMAT_MOAFIAT,PAYANKHEDMAT_MOAFIAT),(IMAGE,IMAGE))
+    # Fields
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    type= models.CharField(max_length=20,choices=FILE_TYPE)
+    files = models.FileField(upload_to="upload/person_files/",null=True,blank=True)
+    # Relationship Fields
+    person=models.ForeignKey(
+        'person.Person',
+        on_delete=models.CASCADE, related_name="files"
+    )
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return f'{self.person.full_name}'

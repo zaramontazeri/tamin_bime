@@ -3,16 +3,16 @@ from . import models
 from rest_framework import serializers
 
 
-class WalletsSerializer(serializers.ModelSerializer):
+# class WalletsSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = models.Wallets
-        fields = (
-            'pk', 
-            'created', 
-            'last_updated', 
-            'value', 
-        )
+#     class Meta:
+#         model = models.Wallets
+#         fields = (
+#             'pk', 
+#             'created', 
+#             'last_updated', 
+#             'value', 
+#         )
 
 
 class TransactionSerializer(serializers.ModelSerializer):

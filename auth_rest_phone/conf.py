@@ -47,7 +47,7 @@ default_settings = {
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": False,
     "TOKEN_MODEL": "rest_framework.authtoken.models.Token",
-    "AUTH_VALID_USER_GROUPS" :  ['student','parent','company','driver'],
+    "AUTH_VALID_USER_GROUPS" :  ['company','person'],
 
     "SERIALIZERS": ObjDict(
         {

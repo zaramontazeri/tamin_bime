@@ -1,20 +1,20 @@
 from django.contrib import admin
 from django import forms
-from .models import Wallets, Transaction, Invoice
+from .models import  Transaction, Invoice
 
-class WalletsAdminForm(forms.ModelForm):
+# class WalletsAdminForm(forms.ModelForm):
 
-    class Meta:
-        model = Wallets
-        fields = '__all__'
+#     class Meta:
+#         model = Wallets
+#         fields = '__all__'
 
 
-class WalletsAdmin(admin.ModelAdmin):
-    form = WalletsAdminForm
-    list_display = ['created', 'last_updated', 'value']
-    readonly_fields = ['created', 'last_updated']
+# class WalletsAdmin(admin.ModelAdmin):
+#     form = WalletsAdminForm
+#     list_display = ['created', 'last_updated', 'value']
+#     readonly_fields = ['created', 'last_updated']
 
-admin.site.register(Wallets, WalletsAdmin)
+# admin.site.register(Wallets, WalletsAdmin)
 
 
 class TransactionsAdminForm(forms.ModelForm):
