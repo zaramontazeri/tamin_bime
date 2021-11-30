@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('website', models.URLField(blank=True, null=True)),
                 ('active', models.BooleanField(default=True)),
                 ('phone_numbers', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=100, null=True), size=None)),
-                ('capacity', models.IntegerField(default=0)),
+                
                 ('address_point', django.contrib.gis.db.models.fields.PointField(srid=4326)),
                 ('address', models.JSONField(default=dict)),
             ],

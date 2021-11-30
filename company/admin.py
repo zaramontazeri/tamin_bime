@@ -13,6 +13,6 @@ class CompanyAdminForm(forms.ModelForm):
 
 class CompanyAdmin(OSMGeoAdmin):
     form = CompanyAdminForm
-    list_display = ['created', 'last_updated','name', 'manager_full_name', 'manager_national_code', 'email', 'website', 'active', 'phone_numbers', 'capacity', 'address_point', 'address']
+    list_display = ['created', 'last_updated','name', 'manager_full_name', 'manager_national_code', 'email', 'website', 'active', 'phone_numbers', 'address_point', 'address']
 
 admin.site.register(Company, CompanyAdmin)

@@ -13,7 +13,6 @@ class Company(models.Model):
     website = models.URLField(null=True,blank=True)
     active = models.BooleanField(default=True)
     phone_numbers = ArrayField(models.CharField(max_length=100,blank=True,null=True))
-    capacity = models.IntegerField(default=0)
     address_point = models.PointField()
     address = JSONField(default=dict)
 

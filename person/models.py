@@ -38,7 +38,7 @@ class File_Person (models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     type= models.CharField(max_length=20,choices=FILE_TYPE)
-    files = models.FileField(upload_to="upload/person_files/",null=True,blank=True)
+    files = models.FileField(upload_to="upload/person_files/")
     # Relationship Fields
     person=models.ForeignKey(
         'person.Person',
@@ -46,6 +46,8 @@ class File_Person (models.Model):
     )
     class Meta:
         ordering = ('-created',)
+        verbose_name = ('File')
+        verbose_name_plural = ('Files')
 
     def __str__(self):
         return f'{self.person.full_name}'

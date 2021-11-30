@@ -17,6 +17,5 @@ class CompanySerializer(WritableNestedModelSerializer):
             'website', 
             'active', 
             'phone_numbers', 
-            'capacity', 
             'address'
         )
