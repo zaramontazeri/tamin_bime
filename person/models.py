@@ -25,34 +25,34 @@ class Person (models.Model):
     last_name = models.CharField(max_length=50)
     gender = models.CharField(max_length=6,choices=GENDER_TYPE)
     father_name = models.CharField(max_length=50)
-    marital_status=models.CharField(max_length=7,choices=MARITAL_STATUS_TYPE)
+    marital_status=models.CharField(max_length=7,choices=MARITAL_STATUS_TYPE) #vaziat taahol
     birth_place=models.CharField(max_length=50)
-    Place_issuance_identitycard=models.CharField(max_length=50)
+    Place_issuance_identitycard=models.CharField(max_length=50)  #mahal sodor shenasnameh
     marriage_date=models.DateField(null=True,blank=True)
     birth_date=models.DateField()
     identity_serialnumber=models.CharField(max_length=10)
     national_code = models.CharField(max_length=10)
     education=models.CharField(max_length=20,choices=EDUCATION_TYPE)
     job=models.CharField(max_length=50)
-    work_address_point=models.PointField()
-    work_address = JSONField(default=dict)
+    work_address_point=models.PointField( null=True,blank=True)
+    work_address = JSONField(default=dict, null=True,blank=True)
     address_point = models.PointField()
     address = JSONField(default=dict)
     mobile_numbers = ArrayField(models.CharField(max_length=100))
     phone_numbers = ArrayField(models.CharField(max_length=100, null=True,blank=True))
     postalcode=models.CharField(max_length=10)
-    insurance_history= models.BooleanField(default=False)
-    province_registration=models.CharField(max_length=50)
-    province_code=models.CharField(max_length=5)
-    township_registration=models.CharField(max_length=50)
-    township_code=models.CharField(max_length=5)
-    part_registration=models.CharField(max_length=50)
-    part_code=models.CharField(max_length=5)
-    ruraldistrict_registration=models.CharField(max_length=50,null=True,blank=True)
-    ruraldistrict_code=models.CharField(max_length=5)
-    city_registration=models.CharField(max_length=50)
-    city_code=models.CharField(max_length=5)
-    village_registration=models.CharField(max_length=50,null=True,blank=True)
+    insurance_history= models.BooleanField()
+    province_registration=models.CharField(max_length=50, null=True,blank=True) #ostan
+    province_code=models.CharField(max_length=5, null=True,blank=True)
+    township_registration=models.CharField(max_length=50, null=True,blank=True) #shahrestan
+    township_code=models.CharField(max_length=5, null=True,blank=True)
+    part_registration=models.CharField(max_length=50, null=True,blank=True)  #bakhsh
+    part_code=models.CharField(max_length=5, null=True,blank=True)
+    ruraldistrict_registration=models.CharField(max_length=50,null=True,blank=True) #dehestan
+    ruraldistrict_code=models.CharField(max_length=5, null=True,blank=True)
+    city_registration=models.CharField(max_length=50, null=True,blank=True) #shahr
+    city_code=models.CharField(max_length=5, null=True,blank=True)
+    village_registration=models.CharField(max_length=50,null=True,blank=True) #roosta
     
 
     # Relationship Fields
