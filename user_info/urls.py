@@ -5,7 +5,7 @@ from . import api
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'wallets', api.WalletsViewSet)
+# router.register(r'wallets', api.WalletsViewSet)
 router.register(r'transactions', api.TransactionViewSet)
 router.register(r'invoice', api.InvoiceViewSet)
 

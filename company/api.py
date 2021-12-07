@@ -8,3 +8,10 @@ class CompanyViewSet(viewsets.ModelViewSet):
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class File_CompanyViewSet(viewsets.ModelViewSet):
+    """ViewSet for the File class"""
+
+    queryset = models.File_Company.objects.all()
+    serializer_class = serializers.File_CompanySerializer
+    permission_classes = [permissions.IsAuthenticated]

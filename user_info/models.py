@@ -14,31 +14,31 @@ from django.utils.translation import ugettext_lazy as _
 from decimal import Decimal
 
 
-class Wallets(models.Model):
+# class Wallets(models.Model):
 
-    # Fields
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
-    value = models.DecimalField(max_digits=19, decimal_places=0,)
+#     # Fields
+#     created = models.DateTimeField(auto_now_add=True, editable=False)
+#     last_updated = models.DateTimeField(auto_now=True, editable=False)
+#     value = models.DecimalField(max_digits=19, decimal_places=0,)
 
-    # Relationship Fields
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE, related_name="walletss", 
-    )
+#     # Relationship Fields
+#     user = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         on_delete=models.CASCADE, related_name="walletss", 
+#     )
 
-    class Meta:
-        ordering = ('-created',)
+#     class Meta:
+#         ordering = ('-created',)
 
-    def __unicode__(self):
-        return u'%s' % self.pk
+#     def __unicode__(self):
+#         return u'%s' % self.pk
 
-    def get_absolute_url(self):
-        return reverse('user_info_wallets_detail', args=(self.pk,))
+#     def get_absolute_url(self):
+#         return reverse('user_info_wallets_detail', args=(self.pk,))
 
 
-    def get_update_url(self):
-        return reverse('user_info_wallets_update', args=(self.pk,))
+#     def get_update_url(self):
+#         return reverse('user_info_wallets_update', args=(self.pk,))
 
 
 
@@ -57,18 +57,18 @@ class Invoice(models.Model):
     order_status=models.CharField(verbose_name=_("pay_status"),max_length=4,choices=ORDER_STATUS_CHOICES,default=DRAFT)
 
     # Relationship Fields
-    request = models.ForeignKey(
-        'transportation_company.Request',
-        on_delete=models.CASCADE, related_name="invoices", 
-    )
-    from_wallet =  models.ForeignKey(
-        'user_info.Wallets',
-        on_delete=models.CASCADE, related_name="invoices_from", 
-    )
-    to_wallet =  models.ForeignKey(
-        'user_info.Wallets',
-        on_delete=models.CASCADE, related_name="invoices_to", 
-    )
+    # request = models.ForeignKey(
+    #     'transportation_company.Request',
+    #     on_delete=models.CASCADE, related_name="invoices", 
+    # )
+    # from_wallet =  models.ForeignKey(
+    #     'user_info.Wallets',
+    #     on_delete=models.CASCADE, related_name="invoices_from", 
+    # )
+    # to_wallet =  models.ForeignKey(
+    #     'user_info.Wallets',
+    #     on_delete=models.CASCADE, related_name="invoices_to", 
+    # )
     class Meta:
         ordering = ('-created',)
 
@@ -144,7 +144,7 @@ class Transaction(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     # Relationship Fields
-    wallet=models.ForeignKey(Wallets,verbose_name=_("wallet"), on_delete=models.PROTECT,related_name="transactions")
+    # wallet=models.ForeignKey(Wallets,verbose_name=_("wallet"), on_delete=models.PROTECT,related_name="transactions")
 
     class Meta:
         ordering = ('-pk',)
