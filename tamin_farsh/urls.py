@@ -45,6 +45,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/person/', include('person.urls')),
     path('api/company/', include('company.urls')),
-    path('api/auth/', include('auth_rest_phone.urls')),
-    path('api/auth/', include('auth_rest_phone.urls.jwt')),
+    path('api/report/', include('report.urls')),
 ]
