@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'company',
     'person',
+    'report',
     'drf_yasg2',
     'auth_rest_phone',
     'user_info',
