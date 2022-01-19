@@ -32,3 +32,13 @@ class RegistrationApiView(viewsets.ModelViewSet):
         from_date = from_date.replace(hour=0, minute=0, second=0, microsecond=0)
         to_date = to_date.replace(hour=23,minute=59,second=59,microsecond=0)
         return models.Person.objects.filter(created__gte = from_date , created__lte = to_date).count()
+
+def get_queryset(from_date,to_date):
+        from_date=datetime.strptime(from_date,'%Y-%m-%d')
+        
+        to_date =datetime.strptime( to_date,'%Y-%m-%d')
+
+        from_date = from_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        to_date = to_date.replace(hour=23,minute=59,second=59,microsecond=0)
+        return models.Person.objects.filter(created__gte = from_date , created__lte = to_date).count()
+

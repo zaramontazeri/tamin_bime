@@ -15,7 +15,7 @@ class Company(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     manager_first_name = models.CharField(max_length=30)
-    manager_last_name = models.CharField(max_length=30,null=True,blank=True)
+    manager_last_name = models.CharField(max_length=30)
     manager_national_code = models.CharField(max_length=12)
     main_field_activity=models.CharField(max_length=300)
     experience=models.TextField()
