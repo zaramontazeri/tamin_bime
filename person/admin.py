@@ -11,7 +11,7 @@ class PersonAdminForm(forms.ModelForm):
 
 class PersonAdmin(OSMGeoAdmin):
     form = PersonAdminForm
-    list_display = ['created', 'last_updated', 'first_name','last_name','gender','father_name','marital_status','birth_place','Place_issuance_identitycard','marriage_date', 'birth_date', 'identity_serialnumber', 'national_code','education',
+    list_display = ['created', 'last_updated', 'first_name','last_name','gender','father_name','marital_status','birth_place','Place_issuance_identitycard','marriage_date', 'birth_date', 'identity_serialnumber','identity_number', 'national_code','education',
             'job',
             'work_address_point',
             'work_address',
@@ -31,7 +31,8 @@ class PersonAdmin(OSMGeoAdmin):
             'ruraldistrict_code',
             'city_registration',
             'city_code',
-            'village_registration', 'company']
+            'village_registration', 'company','company_name'
+            ]
     readonly_fields = ['created', 'last_updated']
 
 admin.site.register(Person, PersonAdmin)

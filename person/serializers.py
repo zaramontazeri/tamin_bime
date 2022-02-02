@@ -2,8 +2,11 @@ from . import models
 from rest_framework import serializers
 from drf_extra_fields.geo_fields import PointField
 
+
 class PrsonSerializer(serializers.ModelSerializer):
-    address_point = PointField()
+    company_name = serializers.SerializerMethodField()  #add to serializer with def get() to get company_name
+    address_point = PointField()  #add to serializer to send location from map as lat and long
+    work_address_point=PointField()
     class Meta:
         
         model = models.Person
@@ -20,6 +23,7 @@ class PrsonSerializer(serializers.ModelSerializer):
             'Place_issuance_identitycard',
             'marriage_date',
             'birth_date',
+            'identity_number',
             'identity_serialnumber',
             'national_code', 
             'education',
@@ -43,8 +47,13 @@ class PrsonSerializer(serializers.ModelSerializer):
             'city_registration',
             'city_code',
             'village_registration',
+            'company',
+            'company_name'
+            
 
         )
+    def get_company_name(self , obj):
+        return obj.company.name
 
 class File_PersonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,7 +63,6 @@ class File_PersonSerializer(serializers.ModelSerializer):
             'created', 
             'last_updated',
             'type',
-            'files',
+            'person_document',
             'person'
         )
-

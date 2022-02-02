@@ -6,12 +6,12 @@ class CompanyReport(models.Model):
     description=models.TextField(max_length=1000)
 
     # Relationship Fields
-    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='companyreport')
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='companyreport',blank=True, null=True)
     
     class Meta:
         ordering=('-created',)
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+    #     return self.pk
 
 

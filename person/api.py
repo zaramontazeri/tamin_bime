@@ -3,6 +3,7 @@ from . import serializers
 from rest_framework import viewsets, permissions
 from datetime import datetime, time , timedelta 
 from rest_framework.exceptions import ValidationError
+from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 
 class PersonViewSet(viewsets.ModelViewSet):
     """ViewSet for the Person class"""
@@ -16,6 +17,7 @@ class File_PersonViewSet(viewsets.ModelViewSet):
 
     queryset = models.File_Person.objects.all()
     serializer_class = serializers.File_PersonSerializer
+    parser_classes = (FormParser, MultiPartParser)
     permission_classes = [permissions.IsAuthenticated]
 
 class RegistrationApiView(viewsets.ModelViewSet):
