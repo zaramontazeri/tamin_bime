@@ -3,11 +3,11 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
 
 class Company(models.Model):
-    MAINSTREET='mainstreet' #asli
-    AUXILIARYROAD='auxiliaryroad' #farei
-    DOWNTOWN='downtown' #markaz
-    CITYENTRANCEEXIT='city_entrance/exit' #vorodi/khorogi shahr
-    SUBRUBS='suburbs' #hoomeh
+    MAINSTREET='MAINSTREET' #asli
+    AUXILIARYROAD='AUXILIARYROAD' #farei
+    DOWNTOWN='DOWNTOWN' #markaz
+    CITYENTRANCEEXIT='CITYENTRANCEEXIT' #vorodi/khorogi shahr
+    SUBRUBS='SUBRUBS' #hoomeh
     LOCATION_TYPE=((MAINSTREET,MAINSTREET),(AUXILIARYROAD,AUXILIARYROAD),(DOWNTOWN,DOWNTOWN),(CITYENTRANCEEXIT,CITYENTRANCEEXIT),(SUBRUBS,SUBRUBS))
     # Fields
     date_completion=models.DateField()
@@ -24,10 +24,10 @@ class Company(models.Model):
     active = models.BooleanField(default=True)
     mobile_numbers = ArrayField(models.CharField(max_length=100))
     phone_numbers = ArrayField(models.CharField(max_length=100))
-    homeaddress_point = models.PointField()
-    homeaddress = JSONField(default=dict)
-    companyaddress_point = models.PointField()
-    companyaddress = JSONField(default=dict)
+    homeaddress_point = models.PointField(blank=True, null=True)
+    homeaddress =models.CharField(max_length=100, null=True,blank=True)
+    companyaddress_point = models.PointField(blank=True, null=True)
+    companyaddress = models.CharField(max_length=100, null=True,blank=True)
     province=models.CharField(max_length=50)
     city=models.CharField(max_length=50)
     company_postalcode=models.CharField(max_length=20)
@@ -39,13 +39,15 @@ class Company(models.Model):
     establishment_date=models.DateField()
     business_license_number=models.CharField(max_length=50)
     business_license_place=models.CharField(max_length=50)
-    license_expiration_date=models.CharField(max_length=50)
+    license_expiration_date=models.DateField()
+    username=models.CharField(max_length=20)
+    password=models.CharField(max_length=10)
 
     class Meta:
         ordering = ('-created',)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.pk} : {self.name}'
 
 class File_Company (models.Model):
     MOHR='mohr'

@@ -1,9 +1,12 @@
 from . import models
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-
+from drf_extra_fields.geo_fields import PointField
 
 class CompanySerializer(WritableNestedModelSerializer):
+    homeaddress_point=PointField()
+    companyaddress_point=PointField()
+
     class Meta:
         model = models.Company
         fields = (
@@ -22,8 +25,10 @@ class CompanySerializer(WritableNestedModelSerializer):
             'active', 
             'phone_numbers', 
             'homeaddress',
+            'homeaddress_point',
             'mobile_numbers',
             'companyaddress',
+            'companyaddress_point',
             'province',
             'city',
             'company_postalcode',
@@ -36,6 +41,7 @@ class CompanySerializer(WritableNestedModelSerializer):
             'business_license_number',
             'business_license_place',
             'license_expiration_date',
+            'username',
         )
 
 class File_CompanySerializer(serializers.ModelSerializer):
@@ -49,5 +55,3 @@ class File_CompanySerializer(serializers.ModelSerializer):
             'files',
             'company'
         )
-
-
