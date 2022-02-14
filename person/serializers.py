@@ -3,7 +3,7 @@ from rest_framework import serializers
 from drf_extra_fields.geo_fields import PointField
 
 
-class PrsonSerializer(serializers.ModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     company_name = serializers.SerializerMethodField()  #add to serializer with def get() to get company_name
     address_point = PointField()  #add to serializer to send location from map as lat and long
     work_address_point=PointField()

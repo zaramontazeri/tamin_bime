@@ -1,7 +1,7 @@
 from datetime import date, datetime,timedelta
 from . import models
 from . import serializers
-from rest_framework import viewsets, permissions,views,response
+from rest_framework import viewsets, permissions,views,response,status
 from django.db import models as dj_models
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from person import models as pmodels
@@ -20,11 +20,28 @@ def get_week():
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
-    """ViewSet for the Company class"""
+    """ViewSet for the Company class
+    ygyhu
+    """
 
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
     permission_classes = [permissions.IsAuthenticated]
+    def create(self, request, *args, **kwargs):
+        data=request.data
+        user={}
+        user['first_name']=data.get('manager_first_name')
+        user['last_name']=data.get('manager_last_name')
+        user['phone']=data.get('manager_first_name')[0]
+        user['username']=data.pop('username')
+        user['password']=data.pop('password')
+        user['re_password']=data.pop('re_password')
+        data['user']=user
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class File_CompanyViewSet(viewsets.ModelViewSet):
     """ViewSet for the File class"""

@@ -1,3 +1,4 @@
+from auth_rest_phone.serializers import UserCreatePasswordRetypeSerializer, UsernameRetypeSerializer
 from . import models
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
@@ -9,6 +10,7 @@ class CompanySerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = models.Company
+        user = UserCreatePasswordRetypeSerializer()
         fields = (
             'pk', 
             'date_completion',
@@ -41,7 +43,7 @@ class CompanySerializer(WritableNestedModelSerializer):
             'business_license_number',
             'business_license_place',
             'license_expiration_date',
-            'username',
+            'user',
         )
 
 class File_CompanySerializer(serializers.ModelSerializer):

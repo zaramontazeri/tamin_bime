@@ -9,7 +9,7 @@ class PersonViewSet(viewsets.ModelViewSet):
     """ViewSet for the Person class"""
 
     queryset = models.Person.objects.all()
-    serializer_class = serializers.PrsonSerializer
+    serializer_class = serializers.PersonSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class File_PersonViewSet(viewsets.ModelViewSet):
@@ -22,7 +22,7 @@ class File_PersonViewSet(viewsets.ModelViewSet):
 
 class RegistrationApiView(viewsets.ModelViewSet):
     
-    serializer_class = serializers.PrsonSerializer
+    serializer_class = serializers.PersonSerializer
     def get_queryset(self):
         try:
             from_date=datetime.strptime(self.request.data["from_date"],'%Y-%m-%d')

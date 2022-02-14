@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.gis.db import models as models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
@@ -40,9 +41,8 @@ class Company(models.Model):
     business_license_number=models.CharField(max_length=50)
     business_license_place=models.CharField(max_length=50)
     license_expiration_date=models.DateField()
-    username=models.CharField(max_length=20)
-    password=models.CharField(max_length=10)
-
+    password=models.CharField(max_length=50)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='companies')
     class Meta:
         ordering = ('-created',)
 

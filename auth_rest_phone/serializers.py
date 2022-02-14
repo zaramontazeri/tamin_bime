@@ -1,5 +1,5 @@
 from rest_framework_simplejwt.tokens import RefreshToken
-from phonenumber_field.serializerfields import PhoneNumberField
+# from phonenumber_field.serializerfields import PhoneNumberField
 from drf_extra_fields.fields import Base64ImageField
 from .models import PhoneOTP
 from django.core.validators import RegexValidator
