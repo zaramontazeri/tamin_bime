@@ -9,8 +9,8 @@ class ThreadAdminForm(forms.ModelForm):
 class ThreadAdmin(admin.ModelAdmin):
     class Meta:
         form=ThreadAdminForm
-        list_display=['created','category','ticket_id','user1','user2']
-        readonly_fields=['created']
+        list_display=['created','category','ticket_id','user1','user2'] 
+        readonly_fields=['created',]
 
 admin.site.register(models.Thread,ThreadAdmin)
 

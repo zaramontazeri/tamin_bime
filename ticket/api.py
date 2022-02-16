@@ -3,6 +3,7 @@ from . import models
 from . import serializers
 from rest_framework import viewsets, permissions, response, status , exceptions
 from auth_rest_phone import models as amodels
+from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 
 class ThreadViewSet(viewsets.ModelViewSet):
     queryset=models.Thread.objects.all()
@@ -24,6 +25,7 @@ class ThreadViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset=models.Message.objects.all()
     serializer_class=serializers.MessageSerializer
+    parser_classes = (FormParser, MultiPartParser)
     permission_classes=[permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
@@ -40,10 +42,10 @@ class MessageViewSet(viewsets.ModelViewSet):
                 detail="thread not found", code="thread_not_found"
             )
         user1 = thread.user1
-
+        user2=thread.user2
         if user == user1:
             data["direction"] = 'u1tou2'
-        else :
+        elif user==user2 :
             data["direction"] = 'u2tou1'
         
         serializer = self.get_serializer(data=data)

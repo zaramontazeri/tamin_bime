@@ -7,10 +7,10 @@ from drf_extra_fields.geo_fields import PointField
 class CompanySerializer(WritableNestedModelSerializer):
     homeaddress_point=PointField()
     companyaddress_point=PointField()
+    user = UserCreatePasswordRetypeSerializer()
 
     class Meta:
         model = models.Company
-        user = UserCreatePasswordRetypeSerializer()
         fields = (
             'pk', 
             'date_completion',
@@ -45,6 +45,7 @@ class CompanySerializer(WritableNestedModelSerializer):
             'license_expiration_date',
             'user',
         )
+        read_only_fields = ('username',)
 
 class File_CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,4 +57,16 @@ class File_CompanySerializer(serializers.ModelSerializer):
             'type',
             'files',
             'company'
+        )
+
+class InsuranceFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=models.InsuranceForm
+        fields=(
+            'pk',
+            'created',
+            'last_updated',
+            'title',
+            'description',
+            'file'
         )

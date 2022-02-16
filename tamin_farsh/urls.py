@@ -48,6 +48,8 @@ urlpatterns = [
     path('api/report/', include('report.urls')),
     path('api/ticket/',include('ticket.urls')),
     path('api/auth/', include('auth_rest_phone.urls')),
+    path('api/role_manager/', include('role_manager.urls')),
+
     path('api/auth/', include('auth_rest_phone.urls.jwt')),
     url(r'api/captcha/', include('rest_captcha.urls')),
 

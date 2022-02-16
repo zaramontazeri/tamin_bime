@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'auth_rest_phone',
     'user_info',
     'rest_captcha',
-    'ticket'
+    'ticket',
+    'role_manager'
 ]
 
 MIDDLEWARE = [

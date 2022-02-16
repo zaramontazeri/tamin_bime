@@ -21,6 +21,12 @@ class Thread (models.Model):
     user1=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='thread_u1')
     user2=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='thread_u2', null=True, blank=True)
 
+    class Meta:
+        ordering=('-created',)
+
+    def __str__(self):
+        return f'{self.category}'
+
 class Message(models.Model):
     DELIVERED="delivered"
     READ="read"

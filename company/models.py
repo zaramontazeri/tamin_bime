@@ -41,8 +41,8 @@ class Company(models.Model):
     business_license_number=models.CharField(max_length=50)
     business_license_place=models.CharField(max_length=50)
     license_expiration_date=models.DateField()
-    password=models.CharField(max_length=50)
-    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='companies')
+    username=models.CharField(max_length=50)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='companies',null=True, blank=True)
     class Meta:
         ordering = ('-created',)
 
@@ -70,3 +70,11 @@ class File_Company (models.Model):
 
     def __str__(self):
         return f'{self.company.name}'
+
+class InsuranceForm(models.Model):
+    #Fields
+    created=models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated=models.DateTimeField(auto_now=True, editable=False)
+    title=models.CharField(max_length=50)
+    description=models.TextField(max_length=500)
+    file=models.FileField(upload_to="upload/insuranceform_file")
