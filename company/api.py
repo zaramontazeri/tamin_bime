@@ -1,10 +1,16 @@
 from datetime import date, datetime,timedelta
+
+from role_manager.permissions import HasGroupRolePermission
 from . import models
 from . import serializers
 from rest_framework import viewsets, permissions,views,response,status
 from django.db import models as dj_models
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from person import models as pmodels
+from django.contrib.auth.models import  Group
+from django.contrib.auth import authenticate, get_user_model
+
+User = get_user_model()
 
 def get_week():
     today=date.today()
@@ -32,16 +38,37 @@ class CompanyViewSet(viewsets.ModelViewSet):
         user={}
         user['first_name']=data.get('manager_first_name')
         user['last_name']=data.get('manager_last_name')
-        user['phone']=data.get('manager_first_name')[0]
-        user['username']=data.pop('username')
+        user['phone']=data.get('mobile_numbers')[0]
         user['password']=data.pop('password')
         user['re_password']=data.pop('re_password')
+        user['username']=data.get('manager_national_code')
+        data['username']=data.get('manager_national_code')
         data['user']=user
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+
+        # new_user_id = serializer.data.user.id
+        # new_user = User.objects.get(id=new_user_id)
+        # try:
+        #     gr, cr = Group.objects.get_or_create(name="marketer")
+        #     gr.user_set.add(user)
+        # except Exception as e:
+        #     pass #group does not exist in context
+        # user.is_active = True
+        # user.save()
         return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def get_serializer_context(self):
+        """
+        Extra context provided to the serializer class.
+        """
+        return {
+            'request': self.request,
+            'format': self.format_kwarg,
+            'view': self,
+            'groups':"marketer"
+        }
 
 class File_CompanyViewSet(viewsets.ModelViewSet):
     """ViewSet for the File class"""
@@ -49,7 +76,7 @@ class File_CompanyViewSet(viewsets.ModelViewSet):
     queryset = models.File_Company.objects.all()
     serializer_class = serializers.File_CompanySerializer
     parser_classes = (FormParser, MultiPartParser)
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated,HasGroupRolePermission]
 
 class RegistrationStatisticalApiView(views.APIView):
     
@@ -70,4 +97,12 @@ class RegistrationStatisticalApiView(views.APIView):
             week_statistics.append({"week_day":day["day"],"count":pmodels.Person.objects.filter(created__gte = from_date , created__lte = to_date).count()})
         result["week_statistics"] = week_statistics
         return response.Response(result)
+
+class InsuranceFormViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Insurance Form class"""
+
+    queryset = models.InsuranceForm.objects.all()
+    serializer_class = serializers.InsuranceFormSerializer
+    parser_classes = (FormParser, MultiPartParser)
+    permission_classes = [permissions.IsAuthenticated]
         

@@ -135,10 +135,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
             if settings.SEND_ACTIVATION_EMAIL:
                 user.is_active = False
                 user.save(update_fields=["is_active"])
+            else :
+                user.is_active = True
+                user.save(update_fields=["is_active"])
         return user
-
-
-
 
 
 
