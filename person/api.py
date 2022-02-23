@@ -4,13 +4,27 @@ from rest_framework import viewsets, permissions
 from datetime import datetime, time , timedelta 
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
+from role_manager.permissions import HasGroupRolePermission
 
 class PersonViewSet(viewsets.ModelViewSet):
     """ViewSet for the Person class"""
-
     queryset = models.Person.objects.all()
     serializer_class = serializers.PersonSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated,HasGroupRolePermission]
+
+    def get_queryset(self):
+        groups = self.request.user.groups.all()
+        user = self.request.user
+        if user.is_superuser :
+            queryset = models.Person.objects.all()
+        elif "marketer" in groups:
+            queryset = models.Person.objects.filter(company__user = user)
+        else :
+            queryset = []
+        # if isinstance(queryset, QuerySet):
+        #     # Ensure queryset is re-evaluated on each request.
+        #     queryset = queryset.all()
+        return queryset
 
 class File_PersonViewSet(viewsets.ModelViewSet):
     """ViewSet for the File class"""
@@ -18,7 +32,7 @@ class File_PersonViewSet(viewsets.ModelViewSet):
     queryset = models.File_Person.objects.all()
     serializer_class = serializers.File_PersonSerializer
     parser_classes = (FormParser, MultiPartParser)
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated,HasGroupRolePermission]
 
 class RegistrationApiView(viewsets.ModelViewSet):
     

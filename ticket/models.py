@@ -25,7 +25,7 @@ class Thread (models.Model):
         ordering=('-created',)
 
     def __str__(self):
-        return f'{self.category}'
+        return f'{self.category}:{self.pk}'
 
 class Message(models.Model):
     DELIVERED="delivered"

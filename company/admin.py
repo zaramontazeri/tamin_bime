@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from django.contrib.gis.admin.options import OSMGeoAdmin
-from .models import  Company, File_Company, InsuranceForm
+from .models import  Company, File_Company, InsuranceForm, InsuranceFormUpload
 from django.contrib.gis import admin
 
 class CompanyAdminForm(forms.ModelForm):
@@ -73,3 +73,15 @@ class InsuranceFormAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'last_updated']
 
 admin.site.register(InsuranceForm, InsuranceFormAdmin)
+
+class InsuranceFormUploadAdminForm(forms.ModelForm):
+    class Meta:
+        model=InsuranceFormUpload
+        fields='__all__'
+
+class InsuranceFormUploadAdmin(admin.ModelAdmin):
+    form=InsuranceFormUploadAdminForm
+    list_display=['created','title', 'description', 'company_name', 'file', 'company', 'user']
+    readonly_fields=['created']
+    
+admin.site.register(InsuranceFormUpload, InsuranceFormUploadAdmin)

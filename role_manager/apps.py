@@ -37,6 +37,7 @@ class RoleManagerConfig(AppConfig):
                     d = ApiUrl(action=i["action"],url=i["url"])
                     d.save()
             for i in list_id_api_urls:
-                ApiUrl.objects.delete(id=i)
+                obj = ApiUrl.objects.get(id=i)
+                obj.delete()
         except ProgrammingError:
             print("please migrate role_manager ")

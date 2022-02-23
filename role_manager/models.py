@@ -30,7 +30,7 @@ class ApiUrl(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return u'%s' % self.url
+        return f"{self.url} : {self.action}"
 
 
 class ConsumerProject(models.Model):

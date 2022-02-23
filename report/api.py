@@ -1,13 +1,14 @@
 from . import models
 from . import serializers
 from rest_framework import viewsets, permissions,response,status
+from role_manager.permissions import HasGroupRolePermission
 
 class CompanyReportViewSet(viewsets.ModelViewSet):
     """ViewSet for the Company Report class"""
 
     queryset = models.CompanyReport.objects.all()
     serializer_class = serializers.CompanyReportSerializers
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated,HasGroupRolePermission]
 
     def create(self, request, *args, **kwargs):
         data = dict(request.data) 

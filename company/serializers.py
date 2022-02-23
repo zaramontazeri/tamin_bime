@@ -70,3 +70,20 @@ class InsuranceFormSerializer(serializers.ModelSerializer):
             'description',
             'file'
         )
+
+class InsuranceFormUploadSerializer(serializers.ModelSerializer):
+    company_name=serializers.SerializerMethodField()
+    class Meta:
+        model=models.InsuranceFormUpload
+        fields=(
+            'pk',
+            'created',
+            'title',
+            'description',
+            'file',
+            'company_name',
+            'company',
+            'user',
+        )
+    def get_company_name(self , obj):
+        return obj.company.name
