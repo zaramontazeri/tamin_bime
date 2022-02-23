@@ -139,13 +139,13 @@ class InsuranceFormUploadViewSet(viewsets.ModelViewSet):
     parser_classes = (FormParser, MultiPartParser)
     permission_classes = [permissions.IsAuthenticated, HasGroupRolePermission]
 
-    # def create(self, request, *args, **kwargs):
-    #     data = dict(request.data)
+    def create(self, request, *args, **kwargs):
+        data = request.data
 
-    #     data['user'] = request.user.id
-    #     serializer = self.get_serializer(data=data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        data['user'] = request.user.id
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 

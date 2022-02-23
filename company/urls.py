@@ -3,7 +3,7 @@ from rest_framework import routers
 from . import api
 
 router = routers.DefaultRouter()
-router.register(r'', api.CompanyViewSet)
+router.register(r's', api.CompanyViewSet)
 router.register(r'file', api.File_CompanyViewSet)
 router.register(r'insurance', api.InsuranceFormViewSet)
 router.register(r'insuranceformupload', api.InsuranceFormUploadViewSet)
