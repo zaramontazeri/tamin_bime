@@ -17,7 +17,7 @@ class RoleManagerConfig(AppConfig):
         try:
             api_url_query = ApiUrl.objects.all()
             api_url_list = [ {"action":i.action,"url":i.url} for i in api_url_query]
-            print(api_url_list)
+            # print(api_url_list)
             generator = SchemaGenerator(
                 title="RDMO API",
                 # patterns=urlpatterns,

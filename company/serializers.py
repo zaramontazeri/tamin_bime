@@ -43,9 +43,10 @@ class CompanySerializer(WritableNestedModelSerializer):
             'business_license_number',
             'business_license_place',
             'license_expiration_date',
+            'username',
             'user',
         )
-        read_only_fields = ('username',)
+        # read_only_fields = ('username',)
 
 class File_CompanySerializer(serializers.ModelSerializer):
     class Meta:

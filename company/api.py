@@ -30,7 +30,6 @@ class UserCompanyAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated,]
     def get(self, request):
         user=request.user
-        print (user )
         try :
             company=models.Company.objects.filter(user=user)
             company_ser=serializers.CompanySerializer(company,many=True)
@@ -41,6 +40,7 @@ class UserCompanyAPIView(views.APIView):
 class CompanyViewSet(viewsets.ModelViewSet):
     """ViewSet for the Company class
     dont get user, instead of that get password and re_password
+    and username is readonly
     """
 
     queryset = models.Company.objects.all()

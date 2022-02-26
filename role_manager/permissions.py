@@ -65,7 +65,7 @@ class HasGroupRolePermission(permissions.BasePermission):
         pk_re = re.compile(r"{pk}")
         action_url = pk_re.sub(r'{id}',action_url)
         action = request.parser_context["view"].action
-        print(action_url)
+        # print(action_url)
         api_url = ApiUrl.objects.get(url=action_url[:-1],action=action)
         api_groups = set(api_url.groups.all())
         intersect = user_groups.intersection(api_groups) 
