@@ -10,6 +10,7 @@ router.register(r'file', api.File_PersonViewSet)
 urlpatterns = (
     # urls for Django Rest Framework API
     path('registration/',api.RegistrationApiView.as_view()),
+    path('registration_report/',api.RegistrationReportApiView.as_view()),
     path('', include(router.urls)),
     
 )

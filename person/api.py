@@ -1,13 +1,13 @@
-from http.client import ResponseNotReady
 from django import views
 from . import models
 from . import serializers
 from rest_framework import viewsets, permissions, views, response
-from datetime import datetime, time , timedelta 
+from datetime import datetime, time , timedelta , date
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from role_manager.permissions import HasGroupRolePermission
 from django.contrib.gis.db import models as gmodels
+import jdatetime
 
 class PersonViewSet(viewsets.ModelViewSet):
     """ViewSet for the Person class"""
@@ -88,3 +88,35 @@ class RegistrationApiView(views.APIView):
 #         to_date = to_date.replace(hour=23,minute=59,second=59,microsecond=0)
 #         return models.Person.objects.filter(created__gte = from_date , created__lte = to_date).count()
 
+class RegistrationReportApiView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated, HasGroupRolePermission]
+    def get(self,request):
+        result={}
+        # monthly report
+        jalali_date=jdatetime.datetime.now()
+        number_date=jalali_date.day-1
+        jalali_first_month=jalali_date-timedelta(days=number_date)
+        gregorian_first_month=jdatetime.date(jalali_first_month.year, jalali_first_month.month, jalali_first_month.day).togregorian()
+        from_date=gregorian_first_month
+        from_date=str(gregorian_first_month)
+        from_date=datetime.strptime(from_date,  '%Y-%m-%d')
+        from_date=from_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        to_date=date.today()
+        to_date=str(to_date)
+        to_date=datetime.strptime(to_date,'%Y-%m-%d')
+        to_date=to_date.replace(hour=23, minute=59, second=59, microsecond=0)
+        result['persons_count_month'] = models.Person.objects.filter(created__gte=from_date, created__lte=to_date).count()
+        # daily report
+        from_time=to_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        to_time=to_date.replace(hour=23, minute=59, second=59, microsecond=0)
+        result['persons_count_day']=models.Person.objects.filter(created__gte=from_time, created__lte=to_time).count()
+        # annual report
+        today=jdatetime.datetime.now()
+        first_year=today.replace(day=1, month=1)
+        from_year=jdatetime.date(first_year.year, first_year.month, first_year.day).togregorian()
+        from_year=str(from_year)
+        from_year=datetime.strptime(from_year,  '%Y-%m-%d')
+        from_year=from_year.replace(hour=0, minute=0, second=0, microsecond=0)
+        result['persons_count_year']=models.Person.objects.filter(created__gte=from_year, created__lte=to_date).count()
+        
+        return response.Response(result)

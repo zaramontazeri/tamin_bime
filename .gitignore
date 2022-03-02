@@ -22,6 +22,7 @@ media
 
 # Generated files
 .idea/**/contentModel.xml
+upload/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

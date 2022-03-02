@@ -21,6 +21,9 @@ from drf_yasg2.views import get_schema_view
 from drf_yasg2 import openapi
 from django.conf.urls import url
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 schema_view = get_schema_view(
       openapi.Info(
@@ -53,4 +56,4 @@ urlpatterns = [
     path('api/auth/', include('auth_rest_phone.urls.jwt')),
     url(r'api/captcha/', include('rest_captcha.urls')),
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

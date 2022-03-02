@@ -21,7 +21,7 @@ def get_week():
     for day in range(7):
         today -= timedelta(days=1)
         weekday = (today.isoweekday() % 7) + 1
-        print(week_label[weekday], today)
+        # print(week_label[weekday], today)
         days.append({"day": week_label[weekday], "date": today})
         # print(week_label[day] ,getDate(day))
     return days
@@ -104,7 +104,7 @@ class RegistrationStatisticalApiView(views.APIView):
         result = {}
 
         result["best_companies"] = [
-            {"name": i.name, "num_register": i.num_register} for i in companies]
+            {"company_id":i.id,"name": i.name, "num_register": i.num_register} for i in companies]
         days = get_week()
         week_statistics = []
         for day in days:
