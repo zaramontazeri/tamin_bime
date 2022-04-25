@@ -1,7 +1,3 @@
-from xml.dom import ValidationErr
-from django import views
-
-from django.http import QueryDict
 from . import models
 from . import serializers
 from rest_framework import viewsets, permissions, response, status , exceptions, views
@@ -9,6 +5,7 @@ from auth_rest_phone import models as amodels
 from auth_rest_phone import serializers as aserializers
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from role_manager.permissions import HasGroupRolePermission
+from rest_framework.exceptions import ValidationError
 
 class ThreadViewSet(viewsets.ModelViewSet):
     queryset=models.Thread.objects.all()
@@ -82,3 +79,17 @@ class UsersListApiView(views.APIView):
             user=amodels.UserProfile.objects.all()
             user_ser=aserializers.UserSerializer(user,many=True)
             return response.Response(user_ser.data)
+
+# class MessageListThreadApiView(views.APIView):
+#     permission_classes=[permissions.IsAuthenticated]
+#     def post(self, request):
+#         thread_id=request.query_params.get('thread_id', 0)
+        
+#         if thread_id==0:
+#             raise ValidationError(code="thred_id_required",detail=("please enter thread_id"))
+#         else:
+#             message=models.Message.objects.filter(thread=thread_id)
+#             message_ser=serializers.MessageSerializer(message, many=True)
+#             return response.Response(message_ser.data)
+
+        

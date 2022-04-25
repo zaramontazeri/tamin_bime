@@ -40,7 +40,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ThreadSerializer(serializers.ModelSerializer):
-    messages = MessageSerializer(many=True)
+    messages = MessageSerializer(many=True, required=False)
+    # Read more about PresentablePrimaryKeyRelatedField at https://github.com/Hipo/drf-extra-fields
     user1= PresentablePrimaryKeyRelatedField(
         queryset=User.objects.all(),
         presentation_serializer=UserSerializer,
@@ -63,5 +64,5 @@ class ThreadSerializer(serializers.ModelSerializer):
             'ticket_id',
             'messages'
         )
-        read_only_fields = ('ticket_id',)
+        read_only_fields = ('ticket_id','messages')
 
